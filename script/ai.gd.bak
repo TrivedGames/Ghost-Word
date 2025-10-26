@@ -1,0 +1,134 @@
+extends Node
+
+@onready var dict = preload("res://script/word_dict.gd").new()
+var board: String# = $"../Board"
+var ai_tiles: Array = []
+
+func ai_take_turn():
+	var best_move : Dictionary = {}
+	var found_move := false
+
+	for row in range(10):
+		for col in range(10):
+			var horiz_word = _get_word_at(row, col, true)
+			var vert_word = _get_word_at(row, col, false)
+
+			if horiz_word.length() >= 2 and horiz_word.length() < 10:
+				var move = _find_word_extension(row, col, horiz_word, true)
+				if move:
+					best_move = move
+					found_move = true
+					break
+
+			if vert_word.length() >= 2 and vert_word.length() < 10:
+				var move = _find_word_extension(row, col, vert_word, false)
+				if move:
+					best_move = move
+					found_move = true
+					break
+
+		if found_move:
+			break
+	
+	if not found_move:
+		var new_word = _find_new_word(ai_tiles)
+		if new_word != "":
+			var empty_positions = _get_empty_positions()
+			if empty_positions.size() > 0:
+				var pos = empty_positions.pick_random()
+				best_move = {
+					"row": pos.x,
+					"col": pos.y,
+					"letter": new_word[0]
+				}
+				found_move = true
+
+	# 3️⃣ If still nothing, just drop a random tile
+	if not found_move:
+		var random_letter = ai_tiles.pick_random()
+		var empty_positions = _get_empty_positions()
+		if empty_positions.size() > 0:
+			var pos = empty_positions.pick_random()
+			best_move = {
+				"row": pos.x,
+				"col": pos.y,
+				"letter": random_letter
+			}
+			
+	if best_move:
+		place_tile(best_move.row, best_move.col, best_move.letter)
+		ai_tiles.erase(best_move.letter)
+
+func _get_word_at(row: int, col: int, horizontal: bool) -> String:
+	var word = ""
+	var r = row
+	var c = col
+
+	while r >= 0 and c >= 0 and board[r][c] != "":
+		if horizontal:
+			c -= 1
+		else:
+			r -= 1
+	if horizontal:
+		c += 1
+	else:
+		r += 1
+
+	while r < 10 and c < 10 and board[r][c] != "":
+		word += board[r][c]
+		if horizontal:
+			c += 1
+		else:
+			r += 1
+	return word
+
+func _find_word_extension(row: int, col: int, existing_word: String, horizontal: bool) -> Dictionary:
+	for word in dict.words:
+		if word.begins_with(existing_word) and word.length() > existing_word.length():
+			var next_letter = word[existing_word.length()]
+			if next_letter in ai_tiles:
+				var place_pos = _find_empty_adjacent(row, col, horizontal)
+				if place_pos:
+					return {
+						"row": place_pos.x,
+						"col": place_pos.y,
+						"letter": next_letter
+					}
+	return {}
+
+func _find_empty_adjacent(row: int, col: int, horizontal: bool) -> Vector2i:
+	if horizontal:
+		if col + 1 < 10 and board[row][col + 1] == "":
+			return Vector2i(row, col + 1)
+	else:
+		if row + 1 < 10 and board[row + 1][col] == "":
+			return Vector2i(row + 1, col)
+	return Vector2i(-1, -1)
+
+func _find_new_word(tiles: Array) -> String:
+	for word in dict.words:
+		if word.length() <= tiles.size() and _can_form_word(word, tiles):
+			return word
+	return ""
+
+func _can_form_word(word: String, tiles: Array) -> bool:
+	var temp = tiles.duplicate()
+	for ch in word:
+		if ch in temp:
+			temp.erase(ch)
+		else:
+			return false
+	return true
+
+func _get_empty_positions() -> Array:
+	var positions = []
+	for r in range(10):
+		for c in range(10):
+			if board[r][c] == "":
+				positions.append(Vector2i(r, c))
+	return positions
+
+func place_tile(row_move, col_move, letter):
+	print("row: " + str(row_move))
+	print("col: " + str(col_move))
+	print("Letter: " + str(letter))

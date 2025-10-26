@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://7wobojrmn8kp"]
+
+[ext_resource type="Shader" uid="uid://cbbhkb83fyatf" path="res://shaders/create_profile.tres" id="1_5rgh8"]
+[ext_resource type="Texture2D" uid="uid://dlcwcnsbeo2gw" path="res://icon.svg" id="1_fndhc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jnnms"]
+shader = ExtResource("1_5rgh8")
+
+[node name="create_profile" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="pfp" type="TextureRect" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_jnnms")
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_fndhc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "ENTER NAME"
+alignment = 1
+secret = true

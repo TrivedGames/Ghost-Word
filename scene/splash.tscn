@@ -1,0 +1,212 @@
+[gd_scene load_steps=13 format=3 uid="uid://brl87f5wcr0ym"]
+
+[ext_resource type="Script" uid="uid://dlku45fv2lxk5" path="res://script/screen/splash.gd" id="1_6itnm"]
+[ext_resource type="Shader" uid="uid://cby26cedvxcta" path="res://shaders/splash.gdshader" id="2_70cgf"]
+[ext_resource type="Texture2D" uid="uid://bnfoe84y06r4p" path="res://assets/images/lobby/Polish_20251010_130818319.png" id="2_l8auq"]
+[ext_resource type="Texture2D" uid="uid://bh31qqvxi6564" path="res://assets/images/lobby/freepik_br_5212872e-8d4c-44a9-a990-90956f758377.png" id="3_6oqei"]
+[ext_resource type="Texture2D" uid="uid://bftna81gg4fi0" path="res://assets/images/lobby/f90a0409-7cf7-407c-b5c0-3b7dc7832ad7-removebg-preview (1).png" id="4_s0lsq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gchy"]
+shader = ExtResource("2_70cgf")
+shader_parameter/burn_progress = 0.0
+shader_parameter/burn_center = Vector2(0.5, 0.5)
+shader_parameter/burn_radius = -0.1
+shader_parameter/burn_spread = 0.9
+shader_parameter/edge_width = 0.03
+shader_parameter/noise_scale = 18.0
+shader_parameter/noise_speed = 0.7
+shader_parameter/char_color = Vector3(0.04, 0.03, 0.02)
+shader_parameter/ember_color = Vector3(1, 0.45, 0.15)
+shader_parameter/ember_intensity = 0.9
+shader_parameter/time = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_6itnm"]
+font_size = 85
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_70cgf"]
+font_size = 80
+
+[sub_resource type="Animation" id="Animation_70cgf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("back:material:shader_parameter/burn_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("back:material:shader_parameter/time")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6itnm"]
+resource_name = "in"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1gchy"]
+resource_name = "out"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("back:material:shader_parameter/burn_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("back:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 5.0000002375]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1gchy"]
+_data = {
+&"RESET": SubResource("Animation_70cgf"),
+&"in": SubResource("Animation_6itnm"),
+&"out": SubResource("Animation_1gchy")
+}
+
+[node name="splash" type="CanvasLayer"]
+script = ExtResource("1_6itnm")
+
+[node name="load_back" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l8auq")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="load_back"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_6oqei")
+expand_mode = 1
+
+[node name="moon" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.082
+anchor_right = 1.0
+anchor_bottom = 1.1060001
+offset_left = 204.864
+offset_top = -111.0
+offset_right = -160.0
+offset_bottom = -650.11206
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_s0lsq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="back" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1gchy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = -102.875
+offset_right = 179.0
+offset_bottom = 102.875
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+offset_left = -56.0
+offset_top = 14.875
+offset_right = 235.0
+offset_bottom = 130.875
+text = "TRIVED"
+label_settings = SubResource("LabelSettings_6itnm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -273.0
+offset_top = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "GAMES"
+label_settings = SubResource("LabelSettings_70cgf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1gchy")
+}

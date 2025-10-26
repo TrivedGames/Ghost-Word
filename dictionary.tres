@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WordDictionary" load_steps=2 format=3 uid="uid://bekdragqmbkcm"]
+
+[ext_resource type="Script" uid="uid://b8poqu32jjtse" path="res://script/word_dict.gd" id="1_yuy7l"]
+
+[resource]
+script = ExtResource("1_yuy7l")
+metadata/_custom_type_script = "uid://b8poqu32jjtse"

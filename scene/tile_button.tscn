@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6caeqlo1rh2e"]
+
+[ext_resource type="FontFile" uid="uid://cyhjoa40w1jiv" path="res://assets/font/Montserrat-Black.ttf" id="1_k4xad"]
+[ext_resource type="Shader" uid="uid://db2kb5brqbya2" path="res://shaders/text.gdshader" id="2_g8eef"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5a7g"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33e6t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0.70906067, 0.09985284, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auuqi"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf0f8"]
+shader = ExtResource("2_g8eef")
+shader_parameter/fill_color = Color(0, 0, 0.11372549, 1)
+shader_parameter/outline_color = Color(0, 0.84760755, 1.0955086, 1)
+shader_parameter/outline_size = 0.0
+shader_parameter/gloss_intensity = 0.735
+shader_parameter/light_dir = Vector2(-0.5, 0.28)
+
+[sub_resource type="LabelSettings" id="LabelSettings_auuqi"]
+font = ExtResource("1_k4xad")
+font_size = 30
+
+[node name="Control" type="Button"]
+custom_minimum_size = Vector2(84, 50)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_k4xad")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/pressed = SubResource("StyleBoxFlat_b5a7g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_33e6t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_auuqi")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_yf0f8")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -18.75
+offset_right = 13.0
+offset_bottom = 18.75
+grow_horizontal = 2
+grow_vertical = 2
+text = "Q"
+label_settings = SubResource("LabelSettings_auuqi")
+horizontal_alignment = 1
+vertical_alignment = 1
