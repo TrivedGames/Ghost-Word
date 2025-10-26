@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://wyb6ajxae22w"]
+[gd_scene load_steps=2 format=3 uid="uid://wyb6ajxae22w"]
+
+[ext_resource type="Texture2D" uid="uid://c63optybtyyyf" path="res://assets/images/lobby/Airbrush-Image-Enhancer-1761058928557.png" id="1_pib52"]
 
 [node name="test screen" type="Node2D"]
+
+[node name="AirbrushImageEnhancer1761058928557" type="Sprite2D" parent="."]
+position = Vector2(71, 71)
+scale = Vector2(0.18523948, 0.16574074)
+texture = ExtResource("1_pib52")
